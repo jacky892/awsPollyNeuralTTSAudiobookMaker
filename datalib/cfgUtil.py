@@ -6,22 +6,24 @@ def get_aws_keys_input():
     ask user for  aws_access_key,aws_secret_key in aws_cfg.ini, ask user for input if not already present
     '''
     cfg_fname=r"aws_cfg.ini"
-    aws_access_key=input('please input aws access key')
+    aws_access_key=input('please input aws access key:')
     while not is_valid_access_key(aws_access_key):
         print('not a valid aws access key')
-        aws_access_key=input('please input aws access key (20 characters)')
+        aws_access_key=input('please input aws access key (20 characters):')
 
-    aws_secret_key=input('please input aws secret key')
+    aws_secret_key=input('please input aws secret key:')
     while not is_valid_secret_key(aws_secret_key):
         print('not a valid aws secret key, try again')
-        aws_secret_key=input('please input aws secret key (40 characters)')
+        aws_secret_key=input('please input aws secret key (40 characters):')
 
+    bucket_name=input('please input s3 bucket name')
     
     config = configparser.ConfigParser()
     # Add the structure to the file we will create
     config.add_section('aws')
     config.set('aws', 'access_key', aws_access_key)
     config.set('aws', 'secret_key', aws_secret_key)
+    config.set('aws', 'bucket_name', bucket_name)
 
     # Write the new structure to the new file
     with open(cfg_fname, 'w') as configfile:
